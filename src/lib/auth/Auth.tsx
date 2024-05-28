@@ -23,7 +23,7 @@ export const AuthContext = createContext<AuthContextType>({
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [authState, setAuthState] = useState<AuthState>({
-    isAuth: true,
+    isAuth: false,
     viewer: null,
   });
 

@@ -24,7 +24,7 @@ export const RecognitionButton = ({ onFileUpload }: RecognitionButtonProps) => {
   return (
     <>
       <Button className="max-h-[53px]" onClick={handleButtonClick}>
-        Распознать
+        Распознать изображение
       </Button>
       <input
         ref={inputRef}

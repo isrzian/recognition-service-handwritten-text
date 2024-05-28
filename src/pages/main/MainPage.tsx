@@ -1,7 +1,12 @@
 import { Container } from "@/layouts/main-layout/components";
 import {
+  mainPageSections,
+  projectDescriptionSectionId,
+  projectObjectivesSectionId,
+  statisticsSectionId,
+} from "@/lib/consts";
+import {
   DragAndDrop,
-  PageSection,
   PageSections,
   PageTitle,
   ProjectDescription,
@@ -10,30 +15,11 @@ import {
   UseSystem,
 } from "./components";
 
-const statisticsSectionId = "statistics";
-const projectObjectivesSectionId = "project-objectives";
-const projectDescriptionSectionId = "project-description";
-
-const pageSections: PageSection[] = [
-  {
-    sectionId: statisticsSectionId,
-    sectionName: "Статистика",
-  },
-  {
-    sectionId: projectObjectivesSectionId,
-    sectionName: "Цель проекта",
-  },
-  {
-    sectionId: projectDescriptionSectionId,
-    sectionName: "Описание проекта",
-  },
-];
-
 export const MainPage = () => {
   return (
     <div className="pt-[200px] lg:pt-[236px]">
       <FixedContainer>
-        <PageSections sections={pageSections} />
+        <PageSections sections={mainPageSections} />
       </FixedContainer>
 
       <PageTitle className="mb-[28px]" />

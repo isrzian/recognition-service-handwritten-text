@@ -1,9 +1,5 @@
+import { PageSection } from "@/types";
 import { cn } from "@/lib/helpers";
-
-export interface PageSection {
-  sectionId: string;
-  sectionName: string;
-}
 
 interface PageSectionsProps {
   className?: string;

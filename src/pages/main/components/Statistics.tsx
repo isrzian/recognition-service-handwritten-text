@@ -1,3 +1,4 @@
+import React from 'react';
 import { Card } from "@/components";
 import { cn } from "@/lib/helpers";
 import backgroundImage from "@/assets/images/statisticsBackground.png";
@@ -12,6 +13,8 @@ export const Statistics = ({ className, ...props }: SectionsProps) => {
     <div
       className={cn(
         "py-[26px] px-[6px] md:py-[45px] md:px-[30px] relative overflow-clip",
+        "shadow-[0_0_25px]",
+        'shadow-additional-color-2/[3%]',
         className
       )}
       {...props}
@@ -39,7 +42,7 @@ export const Statistics = ({ className, ...props }: SectionsProps) => {
       <div className="absolute inset-0 -z-10 bg-gradient-to-r from-white via-white" />
 
       <div
-        className="absolute inset-0 -z-20 rounded-[10px] h-[350px] xl:h-[400px] bg-no-repeat opacity-30 bg-center md:bg-[length:115%_248%] md:bg-[right_250%_top_25%] -rotate-[8deg]"
+        className="absolute -inset-3 -z-20 rounded-[10px] h-[350px] xl:h-[400px] bg-no-repeat opacity-30 bg-center md:bg-[length:114%_255%] md:bg-[right_250%_top_25%] -rotate-[8deg]"
         style={{ backgroundImage: `url(${backgroundImage})` }}
       />
     </div>

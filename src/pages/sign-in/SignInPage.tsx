@@ -1,6 +1,5 @@
 import {
   Button,
-  Checkbox,
   Input,
   Dialog,
   DialogContent,
@@ -71,7 +70,7 @@ const RememberPassword = () => {
           <Button className="uppercase">Отправить</Button>
         </div>
 
-        <div className="bg-success p-[14px] rounded-[10px] font-deja-vu-sans flex items-center gap-[8px]">
+        {/* <div className="bg-success p-[14px] rounded-[10px] font-deja-vu-sans flex items-center gap-[8px]">
           <Checkbox
             disabled
             checked
@@ -80,7 +79,7 @@ const RememberPassword = () => {
           <div className="text-[0.8rem] sm:text-[1rem]">
             Новый пароль был отправлен
           </div>
-        </div>
+        </div> */}
       </DialogContent>
     </Dialog>
   );

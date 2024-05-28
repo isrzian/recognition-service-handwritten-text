@@ -1,6 +1,7 @@
 import { Icon } from "@/components";
 import { Container } from "./Container";
 import { cn } from "@/lib/helpers";
+import { footerEmail } from "@/lib/consts";
 
 export const Footer = () => {
   return (
@@ -27,7 +28,9 @@ export const Footer = () => {
             <span className="leading-tight">Остались вопросы? Пиши нам!</span>
             <div className="flex items-center gap-[9px]">
               <Icon iconName="email" />
-              <a href="mailto:qwerty@mail.ru leading-tight">qwerty@mail.ru</a>
+              <a href={`mailto:${footerEmail}`} className="leading-tight">
+                {footerEmail}
+              </a>
             </div>
           </div>
 

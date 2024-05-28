@@ -81,7 +81,7 @@ export const ProjectDescription = ({
         </Card>
 
         <Card
-          className="bg-[160%_35%] bg-[length:55%] bg-no-repeat p-[12px] sm:px-[20px] sm:py-[22px] md:px-[45px] md:py-[43px]"
+          className="h-full bg-[160%_35%] bg-[length:55%] bg-no-repeat p-[12px] sm:px-[20px] sm:py-[22px] md:px-[45px] md:py-[43px]"
           style={{ backgroundImage: `url(${projectDescriptionFile3})` }}
         >
           <div className="max-w-[75%] md:max-w-[550px]">

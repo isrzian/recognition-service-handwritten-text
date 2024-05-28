@@ -34,22 +34,24 @@ export const RecognitionPage = () => {
         />
       </Card>
 
-      {isRecognitionPending && (
-        <div className="h-[100px] flex justify-center items-center">
+      {isRecognitionPending ? (
+        <div className="h-[250px] flex justify-center items-center">
           <Spinner className="!w-16 !h-16 border-4" />
         </div>
-      )}
-
-      {!isRecognitionPending && selectedRecognitionFile ? (
-        <RecognitionResult
-          className="mb-[36px]"
-          fileImage={selectedRecognitionFile?.imageUrl}
-          text={selectedRecognitionFile?.text}
-        />
       ) : (
-        <div className="h-[100px] flex justify-center items-center text-[1.2rem]">
-          Выберите файл для распознавания
-        </div>
+        <>
+          {selectedRecognitionFile ? (
+            <RecognitionResult
+              className="mb-[36px]"
+              fileImage={selectedRecognitionFile?.imageUrl}
+              text={selectedRecognitionFile?.text}
+            />
+          ) : (
+            <div className="h-[100px] flex justify-center items-center text-[1.2rem]">
+              Выберите файл для распознавания
+            </div>
+          )}
+        </>
       )}
     </div>
   );

@@ -8,7 +8,7 @@ export const MainLayout = () => {
     <>
       <Header />
 
-      <Container className="flex flex-col flex-grow overflow-hidden">
+      <Container className="flex flex-col flex-grow">
         <Suspense fallback={<Fallback />}>
           <Outlet />
         </Suspense>
