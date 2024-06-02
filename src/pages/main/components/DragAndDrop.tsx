@@ -3,18 +3,18 @@ import { useNavigate } from "react-router-dom";
 import { Button, DropAndDropZone, Spinner } from "@/components";
 import { ComponentWithClassName } from "@/types";
 import { Routes } from "@/lib/consts";
-import { useAuth } from "@/lib/auth";
+//import { useAuth } from "@/lib/auth";
 import { cn } from "@/lib/helpers";
 
 export const DragAndDrop = ({ className }: ComponentWithClassName) => {
-  const { isAuth } = useAuth();
+  //const { isAuth } = useAuth();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleInputChange = (files: FileList | File[]) => {
     if (!files[0]) return;
 
-    if (!isAuth) return navigate(Routes.signUp);
+    //if (!isAuth) return navigate(Routes.signUp);
 
     const filteredFiles: File[] = [];
 

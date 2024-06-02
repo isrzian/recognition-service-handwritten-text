@@ -28,6 +28,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   });
 
   const signIn = (username: string, password: string) => {
+    console.log(username, password);
     setAuthState({ isAuth: true, viewer: null });
     localStorage.setItem(localStorageAuthKey, "true");
   };
