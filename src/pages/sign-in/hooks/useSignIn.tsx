@@ -9,11 +9,28 @@ export interface SignInRequestData {
 
 // Функция для авторизации пользователя
 const signInRequest = async (data: SignInRequestData) => {
-  
+  const getCookie = (name: string) => {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+  }
+
+  const cookie = getCookie('csrftoken')
+
   const response = await fetch('http://45.12.230.37/api/login/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'X-CSRFToken': cookie === null ? '' : cookie
     },
     body: JSON.stringify(data),
     credentials: 'include'
@@ -34,6 +51,7 @@ export const useSignIn = () => {
     onSuccess: (data) => {
       if (data.redirect_url) {
         window.location.href = data.redirect_url;
+        console.log(data.redirect_url);
       } else {
         console.error('No redirect_url in response');
       }
