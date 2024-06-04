@@ -2,20 +2,35 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export { ApiError } from './core/ApiError';
-export { CancelablePromise, CancelError } from './core/CancelablePromise';
-export { OpenAPI } from './core/OpenAPI';
-export type { OpenAPIConfig } from './core/OpenAPI';
 
-export type { DemoDocs as DemoDocsDto } from './models/DemoDocs';
-export type { Metric as MetricDto } from './models/Metric';
-export type { RecognizeImage as RecognizeImageDto } from './models/RecognizeImage';
+export type { ChangePassword as ChangePasswordDto } from "./models/ChangePassword";
+export type { DemoDocs as DemoDocsDto } from "./models/DemoDocs";
+export type { Login as LoginDto } from "./models/Login";
+export type { LoginResponse as LoginResponseDto } from "./models/LoginResponse";
+export type { Metric as MetricDto } from "./models/Metric";
+export type { PasswordReset as PasswordResetDto } from "./models/PasswordReset";
+export type { RecognizeImage as RecognizeImageDto } from "./models/RecognizeImage";
+export type { RecognizeText as RecognizeTextDto } from "./models/RecognizeText";
+export type { Register as RegisterDto } from "./models/Register";
+export type { UpdateUser as UpdateUserDto } from "./models/UpdateUser";
+export type { User as UserDto } from "./models/User";
+export type { UserResponse as UserResponseDto } from "./models/UserResponse";
 
-export { DemodocsService } from './services/DemodocsService';
-export { MetricsService } from './services/MetricsService';
-export { RecognizeService } from './services/RecognizeService';
-export { SchemaService } from './services/SchemaService';
-
+export { DemodocsService } from "./services/DemodocsService";
+export { LoginService } from "./services/LoginService";
+export { LogoutService } from "./services/LogoutService";
+export { MetricsService } from "./services/MetricsService";
+export { PasswordResetService } from "./services/PasswordResetService";
+export { ProfileService } from "./services/ProfileService";
+export { RecognizeService } from "./services/RecognizeService";
+export { RegisterService } from "./services/RegisterService";
+export { SchemaService } from "./services/SchemaService";
 import { QueryClient } from "@tanstack/react-query";
 
-export const queryClient = new QueryClient();
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Card } from "@/components";
 import { cn } from "@/lib/helpers";
 import backgroundImage from "@/assets/images/statisticsBackground.png";

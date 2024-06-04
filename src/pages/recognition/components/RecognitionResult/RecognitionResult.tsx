@@ -1,22 +1,22 @@
+import { ReactNode, useEffect, useRef, useState } from "react";
+import { Card } from "@/components";
 import { cn } from "@/lib/helpers";
-import { Button, Card } from "@/components";
-import { useEffect, useRef, useState } from "react";
 
 interface RecognitionResultProps extends React.HTMLAttributes<HTMLDivElement> {
   fileImage?: string;
   text?: string;
+  buttonsSlot: ReactNode;
 }
 
 export const RecognitionResult = ({
   className,
   fileImage,
   text,
+  buttonsSlot,
   ...props
 }: RecognitionResultProps) => {
   const [textCardHeight, setTextCardHeight] = useState<number | null>(null);
   const imageContainerRef = useRef<HTMLDivElement | null>(null);
-
-  console.log(text);
 
   useEffect(() => {
     setTimeout(
@@ -51,9 +51,7 @@ export const RecognitionResult = ({
           {text}
         </div>
 
-        <div className="flex justify-center">
-          <Button className="font-deja-vu-sans">Сохранить в txt</Button>
-        </div>
+        <div className="flex justify-center gap-3">{buttonsSlot}</div>
       </Card>
     </div>
   );

@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { useSendFileForRecognition } from "./useSendFileForRecognition";
 
 export interface RecognitionFileType {
+  id: number | null;
   name?: string;
   imageUrl: string;
   text: string;
@@ -23,6 +24,7 @@ export const useRecognition = () => {
         const uploadedFileUrl = URL.createObjectURL(uploadedFile);
 
         setSelectedRecognitionFile({
+          id: null,
           imageUrl: uploadedFileUrl,
           text: text,
         });
@@ -37,7 +39,7 @@ export const useRecognition = () => {
   useEffect(() => {
     if (locationState) {
       handleFileUpload(locationState.recognitionFiles[0]);
-      window.history.replaceState({}, '')
+      window.history.replaceState({}, "");
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -1,14 +1,15 @@
 import {
-    Control,
-    Controller,
-    FieldValues,
-    RegisterOptions,
+  Control,
+  Controller,
+  FieldValues,
+  RegisterOptions,
 } from "react-hook-form";
 import { cn } from "@/lib/helpers";
 import { FormFieldContainer } from "./FormFieldContainer";
 import { Input } from "../Input";
 
 interface FormFieldProps {
+  className?: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   control: Control<any>;
   name: string;
@@ -19,6 +20,7 @@ interface FormFieldProps {
 }
 
 export const FormField = ({
+  className,
   control,
   name,
   rules,
@@ -31,7 +33,12 @@ export const FormField = ({
     name={name}
     rules={rules}
     render={({ field, fieldState: { error } }) => (
-      <FormFieldContainer label={label} name={name} errorText={error?.message}>
+      <FormFieldContainer
+        className={className}
+        label={label}
+        name={name}
+        errorText={error?.message}
+      >
         <Input
           {...field}
           id={name}

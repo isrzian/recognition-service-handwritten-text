@@ -1,5 +1,6 @@
 import { ReactNode, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useSignUp } from "@/hooks";
 import { Button, PasswordComplexity, PasswordRequirements } from "@/components";
 import { cn } from "@/lib/helpers";
 import {
@@ -7,6 +8,7 @@ import {
   MIN_PASSWORD_LENGTH,
   specialCharRegex,
 } from "@/lib/consts";
+import { RegisterDto } from "@/api";
 import {
   AgreementTerms,
   EmailFormField,
@@ -17,7 +19,6 @@ import {
   RepeatPasswordFormField,
 } from "../FormFields";
 import { signUpFields, SignUpFormFields, termsLink } from "../../consts";
-import { SignUpRequestData, useSignUp } from "../../hooks";
 
 interface SignUpData extends Record<SignUpFormFields, string | boolean> {
   email: string;
@@ -128,11 +129,11 @@ export const SignUpForm = ({
     handlePasswordChange(getValues(signUpFields.password.name) as string);
 
   const onSubmit = (data: SignUpData) => {
-    const requestData: SignUpRequestData = {
+    const requestData: RegisterDto = {
       email: data.email,
-      firstName: data.firstName,
-      lastName: data.lastName,
-      middleName: data.middleName,
+      first_name: data.firstName,
+      last_name: data.lastName,
+      middle_name: data.middleName,
       password: data.password,
     };
 
@@ -167,7 +168,7 @@ export const SignUpForm = ({
         <RepeatPasswordFormField disabled={isPending} control={control} />
       </div>
 
-      <PasswordComplexity className="mb-[38px]">
+      <PasswordComplexity className="mb-[38px] grid md:grid-cols-[repeat(2,_300px)] gap-x-[17px] gap-y-[10px]">
         <PasswordRequirements
           isMeetRequirements={passwordComplexity.passwordStrength !== "Слабая"}
           customLabel={

@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export type DemoDocs = {
+    readonly id: number;
     readonly url: string;
     readonly weight: number;
     readonly width: number;

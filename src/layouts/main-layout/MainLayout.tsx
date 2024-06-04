@@ -22,7 +22,7 @@ export const MainLayout = () => {
 const Fallback = () => (
   <div className="w-full flex-grow flex">
     <div className="flex flex-grow justify-center items-center">
-    <Spinner className="!h-20 !w-20 border-4" />
+      <Spinner className="!h-20 !w-20 border-4" />
     </div>
   </div>
 );

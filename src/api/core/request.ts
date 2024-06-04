@@ -13,6 +13,21 @@ import { CancelablePromise } from './CancelablePromise';
 import type { OnCancel } from './CancelablePromise';
 import type { OpenAPIConfig } from './OpenAPI';
 
+const getCookie = (name: string) => {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+  }
+
 export const isDefined = <T>(value: T | null | undefined): value is Exclude<T, null | undefined> => {
     return value !== undefined && value !== null;
 };
@@ -186,6 +201,9 @@ export const getHeaders = async (config: OpenAPIConfig, options: ApiRequestOptio
             headers['Content-Type'] = 'application/json';
         }
     }
+
+    const csrftoken = getCookie('csrftoken')
+    if (csrftoken) headers['X-CSRFToken'] = csrftoken
 
     return headers;
 };

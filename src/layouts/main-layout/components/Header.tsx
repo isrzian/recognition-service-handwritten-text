@@ -60,7 +60,7 @@ export const Header = () => {
 
         <div className="hidden md:block">
           {isAuth ? (
-            <Link to={{ pathname: Routes.signIn }}>
+            <Link to={{ pathname: Routes.profile }}>
               <Button variant="ghost" className="uppercase">
                 Личный кабинет
               </Button>
@@ -196,6 +196,7 @@ const MobileNavbar = ({ isNavbarOpen, isAuth }: MobileNavbarProps) => {
           {isMainPage &&
             mainPageSections.map(({ sectionId, sectionName }) => (
               <a
+                key={sectionId}
                 href={`#${sectionId}`}
                 className="w-full outline-none focus:border-0"
               >
