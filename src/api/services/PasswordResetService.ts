@@ -2,7 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { PasswordReset } from '../models/PasswordReset';
+import type { ResetPassword } from '../models/ResetPassword';
 import type { UserResponse } from '../models/UserResponse';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -14,7 +14,7 @@ export class PasswordResetService {
      * @throws ApiError
      */
     public static passwordResetCreate(
-        requestBody: PasswordReset,
+        requestBody: ResetPassword,
     ): CancelablePromise<UserResponse> {
         return __request(OpenAPI, {
             method: 'POST',

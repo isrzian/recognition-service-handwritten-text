@@ -1,7 +1,6 @@
 import { lazy } from "react";
 import { createBrowserRouter, Navigate, RouteObject } from "react-router-dom";
 import { AuthLayout, MainLayout } from "@/layouts";
-import { FontTest } from "@/pages/font-test";
 import { Routes } from "@/lib/consts";
 const MainPage = lazy(() => import("@/pages/main"));
 const ProfilePage = lazy(() => import("@/pages/profile"));
@@ -17,10 +16,6 @@ export const routesConfig: RouteObject[] = [
         index: true,
         path: Routes.main,
         element: <MainPage />,
-      },
-      {
-        path: "font-test",
-        element: <FontTest />,
       },
       {
         path: Routes.profile,
@@ -44,6 +39,9 @@ export const routesConfig: RouteObject[] = [
         ],
       },
     ],
+  },
+  {
+    path: "/admin",
   },
   { path: "*", element: <Navigate to={Routes.main} replace /> },
 ];

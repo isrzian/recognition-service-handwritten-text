@@ -1,12 +1,22 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useViewer } from "@/hooks";
 import { Spinner } from "@/components";
 import { cn } from "@/lib/helpers";
+import { useAuth } from "@/lib/auth";
 import { Routes } from "@/lib/consts";
 import { BreadCrumbs, ProfileForm, SignOutButton } from "./components";
 import "./ProfilePage.css";
 
 export const ProfilePage = () => {
   const { viewerData, isLoadingViewer } = useViewer();
+
+  const { isAuth } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isAuth) navigate({ pathname: Routes.signIn });
+  }, [isAuth, navigate]);
 
   return (
     <div className="mb-[40px]">
@@ -21,7 +31,7 @@ export const ProfilePage = () => {
       <div className="py-[30px] px-[16px] sm:py-[30px] sm:px-[50px] lg:py-[27px] lg:px-[66px]">
         <CardTitle />
 
-        {isLoadingViewer ? (
+        {!isLoadingViewer ? (
           <ProfileForm
             viewerData={viewerData}
             signOutButton={<SignOutButton />}

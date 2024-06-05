@@ -2,16 +2,15 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { UserResponse } from '../models/UserResponse';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 export class LogoutService {
     /**
-     * @returns UserResponse
+     * @returns any No response body
      * @throws ApiError
      */
-    public static logoutCreate(): CancelablePromise<UserResponse> {
+    public static logoutCreate(): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/logout/',
