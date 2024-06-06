@@ -115,7 +115,6 @@ export const CurrentPasswordFormField = ({
     name={profileFormFields.currentPassword.name}
     label={profileFormFields.currentPassword.label}
     rules={{
-      required: "Это поле обязательное",
       minLength: {
         value: MIN_PASSWORD_LENGTH,
         message: `Пароль не может быть короче ${MIN_PASSWORD_LENGTH} символов`,
@@ -138,7 +137,6 @@ export const NewPasswordFormField = ({
     name={profileFormFields.newPassword.name}
     label={profileFormFields.newPassword.label}
     rules={{
-      required: "Это поле обязательное",
       minLength: {
         value: MIN_PASSWORD_LENGTH,
         message: `Пароль не может быть короче ${MIN_PASSWORD_LENGTH} символов`,

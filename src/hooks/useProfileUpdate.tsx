@@ -50,7 +50,10 @@ export const useProfileUpdate = () => {
 
   const updateProfileData = async (updatedProfileData: UpdatedProfileData) => {
     await mutateProfileBaseData(updatedProfileData);
-    await mutateProfilePasswordData(updatedProfileData);
+
+    if (updatedProfileData.new_password && updatedProfileData.old_password)
+      await mutateProfilePasswordData(updatedProfileData);
+
     queryClient.invalidateQueries({ queryKey: ["viewer"] });
   };
 

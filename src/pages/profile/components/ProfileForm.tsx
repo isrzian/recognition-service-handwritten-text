@@ -69,10 +69,12 @@ export const ProfileForm = ({
       containsNumberOrSymbol: false,
       passwordStrength: "Слабая",
     });
+  const [isShowPasswordComplexity, setIsShowPasswordComplexity] =
+    useState(false);
 
   const getPasswordRequirementsMatch = (password: string) => {
     const isMatchPasswordLength =
-      password.length >= MIN_PASSWORD_LENGTH ? true : false;
+      password.length >= MIN_PASSWORD_LENGTH;
 
     const email = getValues(profileFormFields.email.name) as string;
     const firstName = getValues(profileFormFields.firstName.name) as string;
@@ -94,6 +96,8 @@ export const ProfileForm = ({
   };
 
   const handlePasswordChange = (password: string) => {
+    setIsShowPasswordComplexity(true);
+
     const {
       isMatchContainsNumberOrSymbol,
       isMatchNotIncludeNameAndEmail,
@@ -119,11 +123,6 @@ export const ProfileForm = ({
     });
   };
 
-  const handleFirstNameAndEmailChange = () =>
-    handlePasswordChange(
-      getValues(profileFormFields.currentPassword.name) as string
-    );
-
   const onSubmit = (data: ProfileFormData) => {
     const requestData: UpdatedProfileData = {
       email: data.email,
@@ -141,16 +140,9 @@ export const ProfileForm = ({
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="mb-[38px] profile-page-fields-grid gap-x-[17px] gap-y-[12px] sm:gap-y-[20px] md:gap-y-[30px]">
         <EmailFormField
-          className="xl:w-[318px] status"
-          control={control}
-          disabled={isProfileDataPending}
-          onFieldChange={handleFirstNameAndEmailChange}
-        />
-        <EmailFormField
           className="xl:w-[318px] email"
           control={control}
           disabled={isProfileDataPending}
-          onFieldChange={handleFirstNameAndEmailChange}
         />
         <LastNameFormField
           className="xl:w-[318px] lastName"
@@ -161,7 +153,6 @@ export const ProfileForm = ({
           className="xl:w-[318px] firstName"
           control={control}
           disabled={isProfileDataPending}
-          onFieldChange={handleFirstNameAndEmailChange}
         />
         <MiddleNameFormField
           className="xl:w-[318px] middleName"
@@ -172,6 +163,7 @@ export const ProfileForm = ({
           className="xl:w-[318px] password"
           control={control}
           disabled={isProfileDataPending}
+          onFieldChange={handlePasswordChange}
         />
         <NewPasswordFormField
           className="xl:w-[318px] newPassword"
@@ -180,7 +172,12 @@ export const ProfileForm = ({
           onFieldChange={handlePasswordChange}
         />
 
-        <PasswordComplexity className="password-complexity">
+        <PasswordComplexity
+          className={cn(
+            "password-complexity",
+            !isShowPasswordComplexity && "invisible"
+          )}
+        >
           <PasswordRequirements
             isMeetRequirements={
               passwordComplexity.passwordStrength !== "Слабая"
