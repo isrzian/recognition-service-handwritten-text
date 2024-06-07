@@ -8,16 +8,23 @@ export type ViewerType = {
   firstName?: string;
   lastName?: string;
   middleName?: string;
+  status?: string;
 };
 
 export const useViewer = () => {
-  const { isAuth } = useAuth();
+  const { setIsAuth } = useAuth();
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ["viewer"],
     queryFn: ProfileService.profileRetrieve,
-    enabled: isAuth,
+    retry: false,
   });
+
+  if (error) {
+    setIsAuth(false);
+  } else {
+    setIsAuth(true);
+  }
 
   return {
     viewerData: {
@@ -26,6 +33,7 @@ export const useViewer = () => {
       firstName: data?.first_name,
       lastName: data?.last_name,
       middleName: data?.middle_name,
+      status: data?.status,
     },
     isLoadingViewer: isLoading,
   };

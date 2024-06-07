@@ -1,5 +1,6 @@
 import { cn } from "@/lib/helpers";
 import { RememberPasswordModal, SignInForm, SignUpViaVK } from "./components";
+import { isShowVkIDButton } from "@/lib/consts";
 
 export const SignInPage = () => {
   return (
@@ -7,7 +8,9 @@ export const SignInPage = () => {
       <PageTitle />
 
       <SignInForm
-        renderButtonSlot={({ disabled }) => <SignUpViaVK disabled={disabled} />}
+        renderButtonSlot={({ disabled }) =>
+          isShowVkIDButton && <SignUpViaVK disabled={disabled} />
+        }
       />
 
       <RememberPasswordModal />

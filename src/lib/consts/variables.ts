@@ -1,5 +1,7 @@
 import { PageSection } from "@/types";
 
+export const isShowVkIDButton = false;
+
 export const footerEmail = "qwerty@mail.ru";
 
 export const statisticsSectionId = "statistics";

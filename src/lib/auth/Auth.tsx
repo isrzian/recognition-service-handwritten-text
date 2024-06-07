@@ -1,3 +1,4 @@
+import { useViewer } from "@/hooks";
 import { createContext, ReactNode, useEffect, useState } from "react";
 
 interface AuthContextType {
@@ -35,6 +36,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     localStorage.removeItem(localStorageAuthKey);
   }, []);
+
+  useViewer();
 
   return (
     <AuthContext.Provider value={{ isAuth, setIsAuth }}>

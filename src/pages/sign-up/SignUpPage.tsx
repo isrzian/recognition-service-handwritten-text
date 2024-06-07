@@ -1,6 +1,7 @@
 import { cn } from "@/lib/helpers";
 import { SignUpForm, SignUpViaVK } from "./components";
 import { ComponentWithClassName } from "@/types";
+import {isShowVkIDButton} from '@/lib/consts';
 
 export const SignUpPage = () => {
   return (
@@ -8,7 +9,7 @@ export const SignUpPage = () => {
       <PageTitle className="mb-[13px]" />
       <SignUpForm
         className="mb-[83px]"
-        renderButtonSlot={({ disabled }) => <SignUpViaVK disabled={disabled} />}
+        renderButtonSlot={({ disabled }) => isShowVkIDButton && <SignUpViaVK disabled={disabled} />}
       />
     </div>
   );

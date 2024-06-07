@@ -1,7 +1,12 @@
 import { ReactNode, useState } from "react";
 import { useForm } from "react-hook-form";
 import { UpdatedProfileData, useProfileUpdate, ViewerType } from "@/hooks";
-import { Button, PasswordComplexity, PasswordRequirements } from "@/components";
+import {
+  Button,
+  Input,
+  PasswordComplexity,
+  PasswordRequirements,
+} from "@/components";
 import {
   digitRegex,
   MIN_PASSWORD_LENGTH,
@@ -139,6 +144,13 @@ export const ProfileForm = ({
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="mb-[38px] profile-page-fields-grid gap-x-[17px] gap-y-[12px] sm:gap-y-[20px] md:gap-y-[30px]">
+        <div className="xl:w-[318px] status">
+          <label className="mb-[8px] text-[0.85rem] md:text-[0.875rem] leading-[1rem] font-deja-vu-sans">
+            Статус
+          </label>
+          <Input className="!cursor-default border-accent" disabled value={viewerData.status} />
+        </div>
+
         <EmailFormField
           className="xl:w-[318px] email"
           control={control}
