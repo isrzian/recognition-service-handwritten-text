@@ -1,10 +1,11 @@
 import { ReactNode } from "react";
+import { useForm } from "react-hook-form";
 import { Button } from "@/components";
+import { useSignIn } from "@/hooks";
+import { LoginDto } from "@/api";
 import { cn } from "@/lib/helpers";
 import { EmailFormField, PasswordFormField } from "../FormFields";
-import { useForm } from "react-hook-form";
 import { SignInFormFields } from "../../consts";
-import { SignInRequestData, useSignIn } from "../../hooks";
 
 interface SignInData extends Record<SignInFormFields, string | boolean> {
   email: string;
@@ -32,7 +33,7 @@ export const SignInForm = ({
   const { isPending, signIn } = useSignIn();
 
   const onSubmit = (data: SignInData) => {
-    const requestData: SignInRequestData = {
+    const requestData: LoginDto = {
       email: data.email,
       password: data.password,
     };

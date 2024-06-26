@@ -4,8 +4,11 @@ import {
   RecognitionButton,
   RecognitionFilesSlider,
   RecognitionResult,
+  //SavePDFButton,
+  SaveTXTButton,
 } from "./components";
 import { useDemoDocs, useRecognition } from "./hooks";
+import { CopyTextButton } from "./components/CopyTextButton";
 
 export const RecognitionPage = () => {
   const {
@@ -45,6 +48,12 @@ export const RecognitionPage = () => {
               className="mb-[36px]"
               fileImage={selectedRecognitionFile?.imageUrl}
               text={selectedRecognitionFile?.text}
+              buttonsSlot={
+                <>
+                  <SaveTXTButton fileId={selectedRecognitionFile.id} />
+                  <CopyTextButton text={selectedRecognitionFile.text}/>
+                </>
+              }
             />
           ) : (
             <div className="h-[100px] flex justify-center items-center text-[1.2rem]">

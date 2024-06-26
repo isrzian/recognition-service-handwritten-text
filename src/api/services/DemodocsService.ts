@@ -17,4 +17,36 @@ export class DemodocsService {
             url: '/api/demodocs/',
         });
     }
+    /**
+     * @param pageId
+     * @returns any No response body
+     * @throws ApiError
+     */
+    public static demodocsPdfFileRetrieve(
+        pageId: number,
+    ): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/demodocs/{page_id}/pdf-file/',
+            path: {
+                'page_id': pageId,
+            },
+        });
+    }
+    /**
+     * @param pageId
+     * @returns any No response body
+     * @throws ApiError
+     */
+    public static demodocsTextFileRetrieve(
+        pageId: number,
+    ): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/demodocs/{page_id}/text-file/',
+            path: {
+                'page_id': pageId,
+            },
+        });
+    }
 }

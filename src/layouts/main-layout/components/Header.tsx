@@ -60,11 +60,19 @@ export const Header = () => {
 
         <div className="hidden md:block">
           {isAuth ? (
-            <Link to={{ pathname: Routes.signIn }}>
-              <Button variant="ghost" className="uppercase">
-                Личный кабинет
-              </Button>
-            </Link>
+            <div className="flex gap-[27px]">
+              <Link to={{ pathname: Routes.recognition }} tabIndex={-1}>
+                <Button variant="ghost" className="uppercase">
+                  Демонстрация
+                </Button>
+              </Link>
+
+              <Link to={{ pathname: Routes.profile }}>
+                <Button variant="ghost" className="uppercase">
+                  Личный кабинет
+                </Button>
+              </Link>
+            </div>
           ) : (
             <div className="flex gap-[27px]">
               <Link to={{ pathname: Routes.recognition }} tabIndex={-1}>
@@ -196,6 +204,7 @@ const MobileNavbar = ({ isNavbarOpen, isAuth }: MobileNavbarProps) => {
           {isMainPage &&
             mainPageSections.map(({ sectionId, sectionName }) => (
               <a
+                key={sectionId}
                 href={`#${sectionId}`}
                 className="w-full outline-none focus:border-0"
               >

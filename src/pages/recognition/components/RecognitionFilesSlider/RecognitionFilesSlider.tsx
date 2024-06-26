@@ -41,6 +41,7 @@ export const RecognitionFilesSlider = ({
 
     if (recognitionFile)
       setSelectedFile({
+        id: recognitionFile.id,
         name: recognitionFile.name,
         imageUrl: `${import.meta.env.VITE_API_URL}${recognitionFile.url}`,
         text: recognitionFile.text,

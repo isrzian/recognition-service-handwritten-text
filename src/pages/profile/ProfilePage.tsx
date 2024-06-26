@@ -1,42 +1,23 @@
-import { Routes } from "@/lib/consts";
-import { BreadCrumbs } from "./components";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useViewer } from "@/hooks";
+import { Spinner } from "@/components";
 import { cn } from "@/lib/helpers";
-import { Field } from "@/lib/types";
-import { Button, Input, PasswordComplexity } from "@/components";
+import { useAuth } from "@/lib/auth";
+import { Routes } from "@/lib/consts";
+import { BreadCrumbs, ProfileForm, SignOutButton } from "./components";
 import "./ProfilePage.css";
 
-const fields: Field[] = [
-  {
-    name: "status",
-    label: "Статус",
-  },
-  {
-    name: "email",
-    label: "E-mail",
-  },
-  {
-    name: "lastName",
-    label: "Фамилия",
-  },
-  {
-    name: "firstName",
-    label: "Имя",
-  },
-  {
-    name: "middleName",
-    label: "Отчество",
-  },
-  {
-    name: "password",
-    label: "Текущий пароль",
-  },
-  {
-    name: "newPassword",
-    label: "Новый пароль",
-  },
-];
-
 export const ProfilePage = () => {
+  const { viewerData, isLoadingViewer } = useViewer();
+
+  const { isAuth } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isAuth) navigate({ pathname: Routes.signIn });
+  }, [isAuth, navigate]);
+
   return (
     <div className="mb-[40px]">
       <PageTitle />
@@ -50,32 +31,16 @@ export const ProfilePage = () => {
       <div className="py-[30px] px-[16px] sm:py-[30px] sm:px-[50px] lg:py-[27px] lg:px-[66px]">
         <CardTitle />
 
-        <div
-          className={cn(
-            "mb-[38px] profile-page-fields-grid gap-x-[17px] gap-y-[12px] sm:gap-y-[20px] md:gap-y-[30px]",
-            // "sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-[repeat(3,_318px)]"
-          )}
-        >
-          {fields.map(({ name, label }) => (
-            <div key={name} className={cn('xl:w-[318px]', name)}>
-              <label
-                htmlFor={name}
-                className="mb-[8px] text-[0.85rem] md:text-[0.875rem] leading-[1rem] font-deja-vu-sans"
-              >
-                {label}
-              </label>
-              <Input id={name} name={name} />
-            </div>
-          ))}
-
-          <PasswordComplexity className="mt-[24px] w-full password-complexity md:grid-cols-none xl:grid-cols-[repeat(2,_300px)]" />
-        </div>
-
-        <div className="flex flex-wrap flex-col sm:flex-row gap-[12px] sm:gap-[20px]">
-          <Button>История распознавания</Button>
-          <Button>Редактировать</Button>
-          <Button>Выйти</Button>
-        </div>
+        {!isLoadingViewer ? (
+          <ProfileForm
+            viewerData={viewerData}
+            signOutButton={<SignOutButton />}
+          />
+        ) : (
+          <div className="h-[300px] grid place-content-center">
+            <Spinner className="!w-16 !h-16 border-4" />
+          </div>
+        )}
       </div>
     </div>
   );

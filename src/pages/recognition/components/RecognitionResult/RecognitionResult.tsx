@@ -1,22 +1,22 @@
+import { ReactNode, useEffect, useRef, useState } from "react";
+import { Card } from "@/components";
 import { cn } from "@/lib/helpers";
-import { Button, Card } from "@/components";
-import { useEffect, useRef, useState } from "react";
 
 interface RecognitionResultProps extends React.HTMLAttributes<HTMLDivElement> {
   fileImage?: string;
   text?: string;
+  buttonsSlot: ReactNode;
 }
 
 export const RecognitionResult = ({
   className,
   fileImage,
   text,
+  buttonsSlot,
   ...props
 }: RecognitionResultProps) => {
   const [textCardHeight, setTextCardHeight] = useState<number | null>(null);
   const imageContainerRef = useRef<HTMLDivElement | null>(null);
-
-  console.log(text);
 
   useEffect(() => {
     setTimeout(
@@ -47,13 +47,12 @@ export const RecognitionResult = ({
         className="p-[20px] md:py-[27px] md:px-[40px] flex flex-col"
         style={{ height: textCardHeight || undefined }}
       >
-        <div className="mb-[9px] h-full overflow-auto flex-grow font-deja-vu-sans font-extralight text-[1.125rem] leading-[1.35rem]">
-          {text}
-        </div>
+        <div
+          className="mb-[9px] h-full overflow-auto flex-grow font-deja-vu-sans font-extralight text-[1.125rem] leading-[1.35rem]"
+          dangerouslySetInnerHTML={{ __html: text || '' }}
+        />
 
-        <div className="flex justify-center">
-          <Button className="font-deja-vu-sans">Сохранить в txt</Button>
-        </div>
+        <div className="flex justify-center gap-3">{buttonsSlot}</div>
       </Card>
     </div>
   );

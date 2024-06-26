@@ -9,50 +9,7 @@ export const PasswordComplexity = ({
   className,
   ...props
 }: PasswordComplexityProps) => {
-  return (
-    <div
-      className={cn(
-        "grid md:grid-cols-[repeat(2,_300px)] gap-x-[17px] gap-y-[10px]",
-        className
-      )}
-      {...props}
-    >
-      {/* <div className="flex items-center gap-[9px] text-[0.75rem] leading-[0.75rem] font-deja-vu-sans text-additional-color-4">
-        <Icon
-          iconName="check"
-          className="min-w-4 max-w-4 min-h-4 max-h-4 text-error"
-        />
-        <div>
-          <span>Надежность пароля: </span>
-          <span className="text-error">Слабая</span>
-        </div>
-      </div>
-
-      <div className="flex items-center gap-[9px] text-[0.75rem] leading-[0.75rem] font-deja-vu-sans text-additional-color-4">
-        <Icon
-          iconName="check"
-          className="min-w-4 max-w-4 min-h-4 max-h-4 text-accent/30"
-        />
-        <span>Минимум 8 символов</span>
-      </div>
-
-      <div className="flex items-center gap-[9px] text-[0.75rem] leading-[0.75rem] font-deja-vu-sans text-additional-color-4">
-        <Icon
-          iconName="check"
-          className="min-w-4 max-w-4 min-h-4 max-h-4 text-accent/30"
-        />
-        <span>Не может содержать ваше имя или адрес электронной почты</span>
-      </div>
-
-      <div className="flex items-center gap-[9px] text-[0.75rem] leading-[0.75rem] font-deja-vu-sans text-additional-color-4">
-        <Icon
-          iconName="check"
-          className="min-w-4 max-w-4 min-h-4 max-h-4 text-accent/30"
-        />
-        <span>Содержит число или символ</span>
-      </div> */}
-    </div>
-  );
+  return <div className={cn(className)} {...props} />;
 };
 
 interface PasswordRequirementsProps {

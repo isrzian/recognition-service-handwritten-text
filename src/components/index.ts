@@ -8,3 +8,4 @@ export * from "./PasswordComplexity";
 export * from "./DropAndDropZone";
 export * from "./Spinner";
 export * from "./Form";
+export * from "./Toast";

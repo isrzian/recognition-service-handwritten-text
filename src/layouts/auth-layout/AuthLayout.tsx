@@ -1,14 +1,23 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import backgroundImage from "@/assets/images/statisticsBackground.png";
 import { cn } from "@/lib/helpers";
+import { useAuth } from "@/lib/auth";
+import { useEffect } from "react";
 
 export const AuthLayout = () => {
+  const { isAuth } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuth) navigate(-1);
+  }, [isAuth, navigate]);
+
   return (
     <>
       <div
         className={cn(
           "mb-[30px] relative overflow-hidden rounded-[20px]",
-          'py-[30px] px-[16px] sm:py-[30px] sm:px-[50px] lg:py-[44px] lg:px-[63px]',
+          "py-[30px] px-[16px] sm:py-[30px] sm:px-[50px] lg:py-[44px] lg:px-[63px]",
           "lg:h-[214px]"
         )}
       >

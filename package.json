@@ -8,12 +8,13 @@
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "apigen": "openapi --input http://localhost:8000/api/schema/ --output src/api --useUnionTypes --exportCore false --exportServices true -c axios --postfixModels Dto"
+    "apigen": "openapi --input http://45.12.230.37/api/schema/ --output src/api --useUnionTypes --exportCore false --exportServices true -c axios --postfixModels Dto"
   },
   "dependencies": {
     "@radix-ui/react-checkbox": "^1.0.4",
     "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-portal": "^1.0.4",
+    "@radix-ui/react-toast": "^1.1.5",
     "@tanstack/react-query": "^5.36.2",
     "axios": "^1.7.2",
     "class-variance-authority": "^0.7.0",

@@ -1,6 +1,8 @@
 import { PageSection } from "@/types";
 
-export const footerEmail = "qwerty@mail.ru";
+export const isShowVkIDButton = false;
+
+export const footerEmail = "ai@sfu-kras.ru";
 
 export const statisticsSectionId = "statistics";
 export const projectObjectivesSectionId = "project-objectives";

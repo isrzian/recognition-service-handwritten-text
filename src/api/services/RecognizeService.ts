@@ -2,24 +2,25 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { CancelablePromise } from "../core/CancelablePromise";
-import { OpenAPI } from "../core/OpenAPI";
-import { request as __request } from "../core/request";
-import { RecognizeImage } from "../models/RecognizeImage";
+import type { RecognizeImage } from '../models/RecognizeImage';
+import type { RecognizeText } from '../models/RecognizeText';
+import type { CancelablePromise } from '../core/CancelablePromise';
+import { OpenAPI } from '../core/OpenAPI';
+import { request as __request } from '../core/request';
 export class RecognizeService {
-  /**
-   * @param formData
-   * @returns string
-   * @throws ApiError
-   */
-  public static recognizeCreate(
-    formData: RecognizeImage
-  ): CancelablePromise<{ text: string }> {
-    return __request(OpenAPI, {
-      method: "POST",
-      url: "/api/recognize/",
-      formData: formData,
-      mediaType: "multipart/form-data",
-    });
-  }
+    /**
+     * @param formData
+     * @returns RecognizeText
+     * @throws ApiError
+     */
+    public static recognizeCreate(
+        formData: RecognizeImage,
+    ): CancelablePromise<RecognizeText> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/recognize/',
+            formData: formData,
+            mediaType: 'multipart/form-data',
+        });
+    }
 }
