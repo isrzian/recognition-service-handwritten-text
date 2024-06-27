@@ -47,9 +47,10 @@ export const RecognitionResult = ({
         className="p-[20px] md:py-[27px] md:px-[40px] flex flex-col"
         style={{ height: textCardHeight || undefined }}
       >
-        <div className="mb-[9px] h-full overflow-auto flex-grow font-deja-vu-sans font-extralight text-[1.125rem] leading-[1.35rem]">
-          {text}
-        </div>
+        <div
+          className="mb-[9px] h-full overflow-auto flex-grow font-deja-vu-sans font-extralight text-[1.125rem] leading-[1.35rem]"
+          dangerouslySetInnerHTML={{ __html: text || '' }}
+        />
 
         <div className="flex justify-center gap-3">{buttonsSlot}</div>
       </Card>
