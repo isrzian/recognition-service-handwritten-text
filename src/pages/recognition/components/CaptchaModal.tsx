@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Dialog, DialogContent } from "@/components";
-import { useCaptcha } from "../hooks/useCaptcha";
+import { Button } from "@/components";
+import ReCAPTCHA from "react-google-recaptcha";
 
 interface CaptchaModalProps {
   isShow: boolean;
@@ -13,51 +14,41 @@ export const CaptchaModal = ({
   onClose,
   onSuccessfulSolvedCaptcha,
 }: CaptchaModalProps) => {
-  const { captcha, generateCaptcha, checkCaptchaMatch } = useCaptcha();
-  const [value, setValue] = useState("");
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
 
   const handleOpenChange = (value: boolean) => {
     if (!value) onClose();
   };
 
-  const handleButtonClick = () => {
-    if (checkCaptchaMatch(value)) onSuccessfulSolvedCaptcha();
+  const handleRecaptchaChange = (token: string | null) => {
+    setRecaptchaToken(token);
   };
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) =>
-    setValue(event.target.value);
+  const handleButtonClick = () => {
+    if (recaptchaToken) {
+      onSuccessfulSolvedCaptcha();
+    } else {
+      alert("Please solve the reCAPTCHA");
+    }
+  };
 
   useEffect(() => {
-    generateCaptcha();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    if (isShow) {
+      setRecaptchaToken(null);
+    }
+  }, [isShow]);
 
   return (
     <Dialog open={isShow} onOpenChange={handleOpenChange}>
       <DialogContent className="max-w-[708px]">
-        <div className="flex items-center gap-5">
-          <div id="user-input" className="inline">
-            <input
-              className="input"
-              type="text"
-              placeholder="Captcha code"
-              value={value}
-              onChange={handleInputChange}
-            />
-          </div>
-
-          <div className="inline cursor-pointer" onClick={generateCaptcha}>
-            Сгенерировать
-          </div>
-
-          <div id="image" className="inline">
-            {captcha}
-          </div>
-          <button id="btn" className="input" onClick={handleButtonClick}>
+        <div className="grid place-items-center items-center gap-5">
+          <ReCAPTCHA
+            sitekey="6Ldc1gcqAAAAAA7p_yj-vnvytitBFBsQpj7Sk2wg"
+            onChange={handleRecaptchaChange}
+          />
+          <Button className="input font-deja-vu-sans" onClick={handleButtonClick}>
             Отправить
-          </button>
-
-          <p id="key"></p>
+          </Button>
         </div>
       </DialogContent>
     </Dialog>
