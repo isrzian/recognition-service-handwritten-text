@@ -10,6 +10,7 @@ import {
 } from "./components";
 import { useDemoDocs, useRecognition } from "./hooks";
 import { CopyTextButton } from "./components/CopyTextButton";
+import axios from "axios";
 
 export const RecognitionPage = () => {
   const {
@@ -20,6 +21,23 @@ export const RecognitionPage = () => {
     captcha,
   } = useRecognition();
   const { demoDocs, isDemoDocsLoading } = useDemoDocs();
+
+  const handleCaptchaSolve = async (token) => {
+    try {
+      const response = await axios.post('/submit-form/', { recaptchaToken: token });
+      if (response.data.status === 'success') {
+        // Handle successful captcha solve
+        captcha.closeCaptchaModal();
+        // Вызывайте другие методы или обновляйте состояние здесь
+      } else {
+        // Handle captcha solve failure
+        alert('Captcha verification failed, please try again.');
+      }
+    } catch (error) {
+      console.error('Error verifying captcha:', error);
+      alert('An error occurred while verifying captcha.');
+    }
+  };
 
   return (
     <div className="px-[6px]">
@@ -68,7 +86,7 @@ export const RecognitionPage = () => {
       <CaptchaModal
         isShow={captcha.isShowCaptchaModal}
         onClose={captcha.closeCaptchaModal}
-        onSuccessfulSolvedCaptcha={captcha.handleCaptchaSolve}
+        onSuccessfulSolvedCaptcha={handleCaptchaSolve}
       />
     </div>
   );
