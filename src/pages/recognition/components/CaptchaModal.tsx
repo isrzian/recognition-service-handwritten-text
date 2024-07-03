@@ -6,7 +6,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 interface CaptchaModalProps {
   isShow: boolean;
   onClose: () => void;
-  onSuccessfulSolvedCaptcha: (token: string) => void;
+  onSuccessfulSolvedCaptcha: () => void;
 }
 
 export const CaptchaModal = ({
@@ -26,7 +26,7 @@ export const CaptchaModal = ({
 
   const handleButtonClick = () => {
     if (recaptchaToken) {
-      onSuccessfulSolvedCaptcha(recaptchaToken);
+      onSuccessfulSolvedCaptcha();
     } else {
       alert("Please solve the reCAPTCHA");
     }

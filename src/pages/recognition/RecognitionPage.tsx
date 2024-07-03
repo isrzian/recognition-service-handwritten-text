@@ -111,7 +111,7 @@ export const RecognitionPage = () => {
       <CaptchaModal
         isShow={captcha.isShowCaptchaModal}
         onClose={captcha.closeCaptchaModal}
-        onSuccessfulSolvedCaptcha={handleCaptchaSolve}
+        onSuccessfulSolvedCaptcha={captcha.handleCaptchaSolve}
       />
     </div>
   );
