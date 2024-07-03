@@ -1,7 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Dialog, DialogContent } from "@/components";
 import { Button } from "@/components";
-import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
+import ReCAPTCHA from "react-google-recaptcha";
 
 interface CaptchaModalProps {
   isShow: boolean;
@@ -14,44 +14,39 @@ export const CaptchaModal = ({
   onClose,
   onSuccessfulSolvedCaptcha,
 }: CaptchaModalProps) => {
-  const { executeRecaptcha } = useGoogleReCaptcha();
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
 
   const handleOpenChange = (value: boolean) => {
     if (!value) onClose();
   };
 
-  const handleButtonClick = async () => {
-    if (!executeRecaptcha) {
-      console.error("Execute recaptcha not yet available");
-      return;
-    }
+  const handleRecaptchaChange = (token: string | null) => {
+    setRecaptchaToken(token);
+  };
 
-    const token = await executeRecaptcha("action_name");
-    if (token) {
-      onSuccessfulSolvedCaptcha(token);
+  const handleButtonClick = () => {
+    if (recaptchaToken) {
+      onSuccessfulSolvedCaptcha(recaptchaToken);
     } else {
-      alert("reCAPTCHA verification failed. Please try again.");
+      alert("Please solve the reCAPTCHA");
     }
   };
 
   useEffect(() => {
-    if (isShow && executeRecaptcha) {
-      executeRecaptcha("action_name").then((token: string) => {
-        if (token) {
-          onSuccessfulSolvedCaptcha(token);
-        }
-      });
+    if (isShow) {
+      setRecaptchaToken(null);
     }
-  }, [isShow, executeRecaptcha, onSuccessfulSolvedCaptcha]);
+  }, [isShow]);
 
   return (
     <Dialog open={isShow} onOpenChange={handleOpenChange}>
       <DialogContent className="max-w-[708px]">
         <div className="grid place-items-center items-center gap-5">
-          <Button
-            className="input font-deja-vu-sans"
-            onClick={handleButtonClick}
-          >
+          <ReCAPTCHA
+            sitekey="6Ldc1gcqAAAAAA7p_yj-vnvytitBFBsQpj7Sk2wg"
+            onChange={handleRecaptchaChange}
+          />
+          <Button className="input font-deja-vu-sans" onClick={handleButtonClick}>
             Отправить
           </Button>
         </div>

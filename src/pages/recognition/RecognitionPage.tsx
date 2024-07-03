@@ -11,7 +11,6 @@ import {
 import { useDemoDocs, useRecognition } from "./hooks";
 import { CopyTextButton } from "./components/CopyTextButton";
 import axios from "axios";
-import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 
 export const RecognitionPage = () => {
   const {
@@ -24,74 +23,97 @@ export const RecognitionPage = () => {
   const { demoDocs, isDemoDocsLoading } = useDemoDocs();
 
   const handleCaptchaSolve = async (token: string) => {
+    function getCookie(name: string) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          // Проверяем, начинается ли эта строка куки с нужного нам имени
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
     try {
-      const response = await axios.post("/submit-form/", { recaptchaToken: token });
-      if (response.data.status === "success") {
+      const csrftoken = getCookie('csrftoken'); // Получение CSRF токена из куки
+      const response = await axios.post(
+        'api/submit-form/',
+        { recaptchaToken: token },
+        {
+          headers: {
+            'X-CSRFToken': csrftoken, // Добавление заголовка X-CSRFToken
+          },
+          withCredentials: true, // Включение передачи куки
+        }
+      );
+
+      if (response.status === 200) {
         // Handle successful captcha solve
         captcha.closeCaptchaModal();
         // Вызывайте другие методы или обновляйте состояние здесь
       } else {
         // Handle captcha solve failure
-        alert("Captcha verification failed, please try again.");
+        alert('Captcha verification failed, please try again.');
       }
     } catch (error) {
-      console.error("Error verifying captcha:", error);
-      alert("An error occurred while verifying captcha.");
+      console.error('Error verifying captcha:', error);
     }
   };
 
   return (
-    <GoogleReCaptchaProvider reCaptchaKey="YOUR_SITE_KEY">
-      <div className="px-[6px]">
-        <PageHeader />
+    <div className="px-[6px]">
+      <PageHeader />
 
-        <Card className="px-[15px] py-[30px] mb-[20px]">
-          <RecognitionFilesSlider
-            isLoading={isDemoDocsLoading}
-            selectedFile={selectedRecognitionFile}
-            setSelectedFile={setSelectedRecognitionFile}
-            demoDocs={demoDocs}
-            buttonSlot={
-              <>
-                <RecognitionButton onFileUpload={handleFileUpload} />
-              </>
-            }
-          />
-        </Card>
-
-        {isRecognitionPending ? (
-          <div className="h-[250px] flex justify-center items-center">
-            <Spinner className="!w-16 !h-16 border-4" />
-          </div>
-        ) : (
-          <>
-            {selectedRecognitionFile ? (
-              <RecognitionResult
-                className="mb-[36px]"
-                fileImage={selectedRecognitionFile?.imageUrl}
-                text={selectedRecognitionFile?.text}
-                buttonsSlot={
-                  <>
-                    <SaveTXTButton fileId={selectedRecognitionFile.id} />
-                    <CopyTextButton text={selectedRecognitionFile.text} />
-                  </>
-                }
-              />
-            ) : (
-              <div className="h-[100px] flex justify-center items-center text-[1.2rem]">
-                Выберите файл для распознавания
-              </div>
-            )}
-          </>
-        )}
-
-        <CaptchaModal
-          isShow={captcha.isShowCaptchaModal}
-          onClose={captcha.closeCaptchaModal}
-          onSuccessfulSolvedCaptcha={handleCaptchaSolve}
+      <Card className="px-[15px] py-[30px] mb-[20px]">
+        <RecognitionFilesSlider
+          isLoading={isDemoDocsLoading}
+          selectedFile={selectedRecognitionFile}
+          setSelectedFile={setSelectedRecognitionFile}
+          demoDocs={demoDocs}
+          buttonSlot={
+            <>
+              <RecognitionButton onFileUpload={handleFileUpload} />
+            </>
+          }
         />
-      </div>
-    </GoogleReCaptchaProvider>
+      </Card>
+
+      {isRecognitionPending ? (
+        <div className="h-[250px] flex justify-center items-center">
+          <Spinner className="!w-16 !h-16 border-4" />
+        </div>
+      ) : (
+        <>
+          {selectedRecognitionFile ? (
+            <RecognitionResult
+              className="mb-[36px]"
+              fileImage={selectedRecognitionFile?.imageUrl}
+              text={selectedRecognitionFile?.text}
+              buttonsSlot={
+                <>
+                  <SaveTXTButton fileId={selectedRecognitionFile.id} />
+                  <CopyTextButton text={selectedRecognitionFile.text} />
+                </>
+              }
+            />
+          ) : (
+            <div className="h-[100px] flex justify-center items-center text-[1.2rem]">
+              Выберите файл для распознавания
+            </div>
+          )}
+        </>
+      )}
+
+      <CaptchaModal
+        isShow={captcha.isShowCaptchaModal}
+        onClose={captcha.closeCaptchaModal}
+        onSuccessfulSolvedCaptcha={handleCaptchaSolve}
+      />
+    </div>
   );
 };
 
